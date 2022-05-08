@@ -10,10 +10,10 @@
     <div class="container">
       <div class="row">
         <div class="col-4">
-          <TxFilter :filterFunc="this.filter" />
+          <TxFilter :search="search" />
         </div>
         <div class="col">
-          <TransactionRows :txs="this.txs" />
+          <TransactionRows :txs="this.filteredTxs" />
           <!-- This should take in an already filtered array not the original txs -->
         </div>
       </div>
@@ -35,16 +35,20 @@ export default {
     TxFilter,
   },
   methods: {
-    filter(searchTerm) {
-      this.filteredTxs = this.filteredTxs.filter(
-        (tx) => tx.name.indexOf(searchTerm) > -1
+    search(searchTerm) {
+      console.log("Searching");
+      const filteredArray = this.uncategorisedTxs.filter(
+        (tx) => tx.Memo.indexOf(searchTerm) > -1
       );
+      this.filteredTxs = filteredArray;
     },
     initialiseTxsData(arr) {
-      arr.forEach((element) => {
-        console.log(element);
-      });
+      // arr.forEach((element) => {
+      //   console.log(element);
+      // });
       this.txs = arr;
+      this.uncategorisedTxs = arr;
+      this.filteredTxs = arr;
     },
   },
   data() {
