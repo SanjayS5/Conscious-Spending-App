@@ -38,7 +38,7 @@ export default {
     search(searchTerm) {
       console.log("Searching");
       const filteredArray = this.uncategorisedTxs.filter(
-        (tx) => tx.Memo.indexOf(searchTerm) > -1
+        (tx) => tx.Memo.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
       );
       this.filteredTxs = filteredArray;
     },
