@@ -141,7 +141,7 @@ export default {
         this.categorisedTxs
       );
       this.uncategorisedTxs = filteredArray;
-      this.filteredTxs = [];
+      this.filteredTxs = this.uncategorisedTxs;
     },
   },
   data() {
