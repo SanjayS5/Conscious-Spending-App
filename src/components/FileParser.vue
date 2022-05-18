@@ -1,7 +1,7 @@
 <template>
   <div>
+    Upload your csv here:
     <input type="file" ref="myFile" @change="selectedFile" />
-    <input type="submit" value="Upload File" />
   </div>
 </template>
 

@@ -13,8 +13,16 @@
           <TxFilter :search="search" @search-event="updateQuery" />
           <div>
             <CategoryView
-              category-name="Housing"
-              property-name="housing"
+              category-name="Fixed Expenses"
+              property-name="fixed"
+              :tx="this.filteredTxs"
+              :query="this.query"
+              @query-added-event="updateCategorised"
+              @tx-categorised-event="updateCategorisedTxs"
+            />
+            <CategoryView
+              category-name="Household"
+              property-name="household"
               :tx="this.filteredTxs"
               :query="this.query"
               @query-added-event="updateCategorised"
@@ -202,7 +210,7 @@ export default {
       query: "", // temp data
       categorised: [],
       categorisedTxs: {
-        housing: [],
+        household: [],
         leisure: [],
         fooddrink: [],
         lifestyle: [],
