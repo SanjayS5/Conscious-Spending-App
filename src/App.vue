@@ -210,6 +210,7 @@ export default {
       query: "", // temp data
       categorised: [],
       categorisedTxs: {
+        fixed: [],
         household: [],
         leisure: [],
         fooddrink: [],
