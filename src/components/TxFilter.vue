@@ -1,9 +1,13 @@
 <template>
-  <h3>Filtered Categories</h3>
-  <label for="search">
-    Search
-    <input id="search" v-model="searchTerm" @keyup="searchAndEmit" />
-  </label>
+  <div>
+    <input
+      class="input-group mb-3"
+      id="search"
+      v-model="searchTerm"
+      @keyup="searchAndEmit"
+      placeholder="Enter your transaction: Eg. countdown"
+    />
+  </div>
 </template>
 
 

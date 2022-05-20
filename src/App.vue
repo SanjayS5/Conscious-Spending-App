@@ -8,9 +8,9 @@
   </section>
   <section>
     <div class="container">
+      <TxFilter :search="search" @search-event="updateQuery" />
       <div class="row">
         <div class="col-4">
-          <TxFilter :search="search" @search-event="updateQuery" />
           <div>
             <CategoryView
               category-name="Fixed Expenses"
@@ -155,10 +155,10 @@ export default {
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+  /* text-align: center; */
+  color: #53677d;
+  /* margin-top: 60px; */
 }
 </style>
