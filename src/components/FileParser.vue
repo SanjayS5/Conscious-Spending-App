@@ -10,9 +10,6 @@ export default {
   name: "FileParser",
   methods: {
     selectedFile() {
-      console.log("selected a file");
-      console.log(this.$refs.myFile.files[0]);
-
       let file = this.$refs.myFile.files[0];
       if (!file || file.type !== "text/csv") return;
 
@@ -43,11 +40,6 @@ export default {
           return el;
         });
 
-        // return the array
-        // arr.forEach((element) => {
-        //   console.log(element);
-        // });
-        console.log("Inside file parse complete");
         this.$emit("file-parsed-event", arr);
         return arr;
       };
