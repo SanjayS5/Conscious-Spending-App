@@ -5,6 +5,8 @@
     <div>
       <p><br /></p>
     </div>
+    <router-link to="/HomePage">HomePage</router-link>
+    <router-view></router-view>
   </section>
   <section>
     <div class="container">
