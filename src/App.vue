@@ -69,15 +69,7 @@
     </div>
   </section>
   <section>
-    <button
-      @click="getInsights()"
-      type="button"
-      class="btn btn-primary mt-2 mb-2"
-    >
-      Show insights!
-    </button>
-    <h2>Insights</h2>
-    <div id="graph"></div>
+    <InsightsData :categorised-txs="this.categorisedTxs" />
   </section>
 </template>
 
@@ -87,7 +79,7 @@ import FileParser from "./components/FileParser";
 import TransactionRows from "./components/TransactionRows";
 import TxFilter from "./components/TxFilter.vue";
 import CategoryView from "./components/CategoryView.vue";
-import Plotly from "plotly.js-dist/plotly";
+import InsightsData from "./components/InsightsData.vue";
 
 export default {
   name: "App",
@@ -96,6 +88,7 @@ export default {
     TransactionRows,
     TxFilter,
     CategoryView,
+    InsightsData,
   },
   methods: {
     search(searchTerm) {
@@ -124,11 +117,7 @@ export default {
       const filterArray = (arr1, categoriesObj) => {
         let filtered = [...arr1];
         for (const category in categoriesObj) {
-          console.log(category);
           filtered = filtered.filter((el) => {
-            if (categoriesObj[category].includes(el)) {
-              console.log("FOUND");
-            }
             return !categoriesObj[category].includes(el);
           });
         }
@@ -141,65 +130,6 @@ export default {
       );
       this.uncategorisedTxs = filteredArray;
       this.filteredTxs = this.uncategorisedTxs;
-    },
-    getInsights() {
-      // console.log(JSON.stringify(this.categorisedTxs));
-      let monthlyData = {};
-      for (const category in this.categorisedTxs) {
-        console.log(JSON.stringify(this.categorisedTxs[category]));
-        this.categorisedTxs[category].forEach((el) => {
-          let date = el.Date.replace("/", "-").replace("/", "");
-          date = date.slice(0, 7);
-          if (!(date in monthlyData)) monthlyData[date] = 0;
-          let amount = el["Amount\r"].replace("-", "").replace("\r", "");
-          amount = parseFloat(amount);
-          monthlyData[date] += amount;
-        });
-      }
-
-      console.log("Monthly data", JSON.stringify(monthlyData));
-
-      var trace1 = {
-        x: Object.keys(monthlyData),
-        y: Object.values(monthlyData),
-        name: "Expenses",
-        // marker: { color: "rgb(55, 83, 109)" },
-        marker: { color: "rgb(26, 118, 255)" },
-        type: "bar",
-      };
-
-      var data = [trace1];
-
-      var layout = {
-        title: "Total Expenses by Month",
-        xaxis: {
-          tickfont: {
-            size: 14,
-            color: "rgb(107, 107, 107)",
-          },
-          type: "category",
-        },
-        yaxis: {
-          title: "NZD ($)",
-          titlefont: {
-            size: 16,
-            color: "rgb(107, 107, 107)",
-          },
-          tickfont: {
-            size: 14,
-            color: "rgb(107, 107, 107)",
-          },
-        },
-        legend: {
-          x: 0,
-          y: 1.0,
-          bgcolor: "rgba(255, 255, 255, 0)",
-          bordercolor: "rgba(255, 255, 255, 0)",
-        },
-        bargap: 0.15,
-      };
-
-      Plotly.newPlot("graph", data, layout);
     },
   },
   data() {
