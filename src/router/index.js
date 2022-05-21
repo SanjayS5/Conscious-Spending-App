@@ -19,7 +19,7 @@ const routes = [
         props: route => ({
             // uncategorisedTxs: JSON.parse(route.params.uncategorisedTxs),
             // filteredTxs: JSON.parse(route.params.filteredTxs),
-            parsedTxs: JSON.parse(route.params.txs)
+            parsedTxs: JSON.parse(route.params.parsedTxs)
         })
     },
     // {

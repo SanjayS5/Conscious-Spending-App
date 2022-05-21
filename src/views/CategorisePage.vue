@@ -58,6 +58,7 @@
         </div>
         <div class="col">
           <TransactionRows :txs="this.filteredTxs" />
+          <!-- <TransactionRows :txs="this.parsedTxs" /> -->
         </div>
       </div>
     </div>
