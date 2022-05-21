@@ -70,9 +70,26 @@
       </div>
     </div>
   </section>
-  <section>
+  <!-- <section>
     <InsightsData :categorised-txs="this.categorisedTxs" />
-  </section>
+  </section> -->
+  <!-- <router-link to="/InsightsPage">Insights</router-link> -->
+  <!-- <router-link
+    :to="{
+      path: '/InsightsPage',
+      params: this.categorisedTxs,
+      name: 'Insights',
+      component: InsightsPage,
+    }"
+    >Insights
+  </router-link> -->
+  <router-link
+    :to="{
+      params: { categorisedTxs: JSON.stringify(this.categorisedTxs) },
+      name: 'Insights',
+    }"
+    >Insights
+  </router-link>
 </template>
 
 
@@ -81,7 +98,7 @@ import FileParser from "./components/FileParser";
 import TransactionRows from "./components/TransactionRows";
 import TxFilter from "./components/TxFilter.vue";
 import CategoryView from "./components/CategoryView.vue";
-import InsightsData from "./components/InsightsData.vue";
+// import InsightsData from "./components/InsightsData.vue";
 
 export default {
   name: "App",
@@ -90,7 +107,7 @@ export default {
     TransactionRows,
     TxFilter,
     CategoryView,
-    InsightsData,
+    // InsightsData,
   },
   methods: {
     search(searchTerm) {
