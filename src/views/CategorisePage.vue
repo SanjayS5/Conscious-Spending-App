@@ -64,6 +64,15 @@
         <div class="col">
           <TransactionRows :txs="this.filteredTxs" />
         </div>
+        <div>
+          <router-link
+            :to="{
+              params: { categorisedTxs: JSON.stringify(this.categorisedTxs) },
+              name: 'Insights',
+            }"
+            >Insights
+          </router-link>
+        </div>
       </div>
     </div>
   </section>
