@@ -1,7 +1,12 @@
 <template>
   <div>
     Upload your csv here:
-    <input type="file" ref="myFile" @change="selectedFile" />
+    <input
+      class="form-control mb-4"
+      type="file"
+      ref="myFile"
+      @change="selectedFile"
+    />
   </div>
 </template>
 

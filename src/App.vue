@@ -1,12 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <FileParser @file-parsed-event="initialiseTxsData" />
-  <section>
+  <!-- <FileParser @file-parsed-event="initialiseTxsData" /> -->
+  <section class="mx-3">
+    <div>
+      <img alt="Vue logo" src="./assets/logo.png" />
+    </div>
     <div>
       <p><br /></p>
     </div>
-    <router-link to="/HomePage">HomePage</router-link>
     <router-view></router-view>
+    <router-link
+      :to="{
+        params: {
+          parsedTxs: JSON.stringify(this.txs),
+        },
+        name: 'categorisePage',
+      }"
+      >Categorise Transactions
+    </router-link>
   </section>
 
   <!-- <section>
@@ -41,26 +51,17 @@
     }"
     >Categorise Transactions
   </router-link> -->
-  <router-link
-    :to="{
-      params: {
-        parsedTxs: JSON.stringify(this.txs),
-      },
-      name: 'categorisePage',
-    }"
-    >Categorise Transactions
-  </router-link>
 </template>
 
 <script>
-import FileParser from "./components/FileParser";
+// import FileParser from "./components/FileParser";
 
 // import InsightsData from "./components/InsightsData.vue";
 
 export default {
   name: "App",
   components: {
-    FileParser,
+    // FileParser,
   },
   methods: {
     initialiseTxsData(arr) {

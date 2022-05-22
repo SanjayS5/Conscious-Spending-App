@@ -1,5 +1,10 @@
 <template>
-  <h1>Categorise Page</h1>
+  <h1>Categorise</h1>
+  <section>
+    <div>
+      <FileParser @file-parsed-event="initialiseTxsData" />
+    </div>
+  </section>
   <section>
     <div class="container">
       <TxFilter :search="search" @search-event="updateQuery" />
@@ -57,14 +62,7 @@
           </div>
         </div>
         <div class="col">
-          <button
-            @click="initialiseTxsData()"
-            class="btn btn-primary mt-2 mb-2"
-          >
-            Update transactions
-          </button>
           <TransactionRows :txs="this.filteredTxs" />
-          <!-- <TransactionRows :txs="this.parsedTxs" /> -->
         </div>
       </div>
     </div>
@@ -75,24 +73,20 @@
 import TransactionRows from "../components/TransactionRows";
 import TxFilter from "../components/TxFilter.vue";
 import CategoryView from "../components/CategoryView.vue";
+import FileParser from "../components/FileParser.vue";
 export default {
-  props: {
-    parsedTxs: { type: Array, required: true },
-    // filteredTxs: { type: Object, required: true },
-    // txs: { type: Object, required: true },
-  },
   components: {
     TransactionRows,
     TxFilter,
     CategoryView,
     // InsightsData,
+    FileParser,
   },
   methods: {
-    initialiseTxsData() {
-      console.log("Fired");
-      this.txs = this.parsedTxs;
-      this.uncategorisedTxs = this.parsedTxs;
-      this.filteredTxs = this.parsedTxs;
+    initialiseTxsData(arr) {
+      this.txs = arr;
+      this.uncategorisedTxs = arr;
+      this.filteredTxs = arr;
     },
     search(searchTerm) {
       const filteredArray = this.uncategorisedTxs.filter(
