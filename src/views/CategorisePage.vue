@@ -57,6 +57,12 @@
           </div>
         </div>
         <div class="col">
+          <button
+            @click="initialiseTxsData()"
+            class="btn btn-primary mt-2 mb-2"
+          >
+            Update transactions
+          </button>
           <TransactionRows :txs="this.filteredTxs" />
           <!-- <TransactionRows :txs="this.parsedTxs" /> -->
         </div>
@@ -83,6 +89,7 @@ export default {
   },
   methods: {
     initialiseTxsData() {
+      console.log("Fired");
       this.txs = this.parsedTxs;
       this.uncategorisedTxs = this.parsedTxs;
       this.filteredTxs = this.parsedTxs;
