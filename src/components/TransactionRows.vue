@@ -1,7 +1,7 @@
 <template>
   <h3>Transaction Rows</h3>
   <div>
-    <table class="table">
+    <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
           <th>Date</th>
