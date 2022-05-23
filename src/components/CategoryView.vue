@@ -4,8 +4,12 @@
   <button @click="addTx(tx)" type="button" class="btn btn-primary mt-2 mb-2">
     {{ categoryName }}
   </button>
-  <li v-for="query in this.queries" :key="query">
-    {{ query }}
+  <li
+    v-for="query in this.queries"
+    :key="query.query"
+    @click="undoCategorisation(query)"
+  >
+    {{ query.query }}
   </li>
 </template>
 
@@ -21,7 +25,9 @@ export default {
   },
   methods: {
     addTx(txArray) {
-      this.queries.push(this.query);
+      // keep track of txs so we can re-insert them into the uncategorised pool if we decide to undo categorisation later
+      const queryAndTxs = { query: this.query, txs: this.tx };
+      this.queries.push(queryAndTxs);
       this.$emit("query-added-event", this.query);
 
       txArray.forEach((tx) => {
@@ -33,6 +39,24 @@ export default {
       });
 
       this.$emit("tx-categorised-event", this.categorisedTxs);
+    },
+    undoCategorisation(query) {
+      console.log("undoCategorisation", JSON.stringify(query));
+
+      // filter, then return the queries to the parent to be re-injected
+      const filteredTxs = this.categorisedTxs.txs.filter((el) => {
+        return !query.txs.includes(el);
+        // query.txs.forEach((tx) => {
+        //   console.log(JSON.stringify(el));
+        //   console.log(JSON.stringify(tx));
+        //   console.log(" ");
+        //   return JSON.stringify(el) != JSON.stringify(tx);
+        //   return !arr2.includes(item)
+        // });
+      });
+      this.categorisedTxs.txs = filteredTxs;
+      console.log("remaining", JSON.stringify(filteredTxs));
+      this.$emit("undo-categorise-event", query.txs); // to be re-injected into uncategorised txs pool in parent
     },
   },
   computed: {
