@@ -2,9 +2,6 @@
   <!-- <FileParser @file-parsed-event="initialiseTxsData" /> -->
   <section class="mx-3">
     <div>
-      <img alt="Vue logo" src="./assets/logo.png" />
-    </div>
-    <div>
       <p><br /></p>
     </div>
     <router-view></router-view>
