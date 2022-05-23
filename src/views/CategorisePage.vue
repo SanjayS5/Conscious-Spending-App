@@ -1,12 +1,12 @@
 <template>
-  <h1>Categorise</h1>
-  <section>
-    <div>
-      <FileParser @file-parsed-event="initialiseTxsData" />
-    </div>
-  </section>
   <section>
     <div class="container">
+      <section>
+        <h1>Categorise</h1>
+        <div>
+          <FileParser @file-parsed-event="initialiseTxsData" />
+        </div>
+      </section>
       <TxFilter :search="search" @search-event="updateQuery" />
       <div class="row">
         <div class="col-4">
