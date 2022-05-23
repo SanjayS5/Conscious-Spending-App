@@ -46,16 +46,15 @@ export default {
       // filter, then return the queries to the parent to be re-injected
       const filteredTxs = this.categorisedTxs.txs.filter((el) => {
         return !query.txs.includes(el);
-        // query.txs.forEach((tx) => {
-        //   console.log(JSON.stringify(el));
-        //   console.log(JSON.stringify(tx));
-        //   console.log(" ");
-        //   return JSON.stringify(el) != JSON.stringify(tx);
-        //   return !arr2.includes(item)
-        // });
       });
       this.categorisedTxs.txs = filteredTxs;
-      console.log("remaining", JSON.stringify(filteredTxs));
+
+      const remainingQueries = this.queries.filter((el) => {
+        const stringToRemove = el.query;
+        return !query.query.includes(stringToRemove);
+      });
+      this.queries = remainingQueries;
+      // console.log("remaining", JSON.stringify(filteredTxs));
       this.$emit("undo-categorise-event", query.txs); // to be re-injected into uncategorised txs pool in parent
     },
   },
