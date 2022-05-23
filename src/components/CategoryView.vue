@@ -16,7 +16,7 @@
 <script>
 export default {
   name: "CategoryView",
-  emits: ["query-added-event", "tx-categorised-event"],
+  emits: ["query-added-event", "tx-categorised-event", "undo-categorise-event"],
   props: {
     categoryName: String,
     propertyName: String,
@@ -41,20 +41,23 @@ export default {
       this.$emit("tx-categorised-event", this.categorisedTxs);
     },
     undoCategorisation(query) {
-      console.log("undoCategorisation", JSON.stringify(query));
-
       // filter, then return the queries to the parent to be re-injected
       const filteredTxs = this.categorisedTxs.txs.filter((el) => {
         return !query.txs.includes(el);
       });
       this.categorisedTxs.txs = filteredTxs;
 
+      query.txs.forEach((el) => {
+        const amount = el["Amount\r"].replace("-", "");
+        const indexToRemove = this.txs.indexOf(amount);
+        this.txs.splice(indexToRemove);
+      });
+
       const remainingQueries = this.queries.filter((el) => {
         const stringToRemove = el.query;
         return !query.query.includes(stringToRemove);
       });
       this.queries = remainingQueries;
-      // console.log("remaining", JSON.stringify(filteredTxs));
       this.$emit("undo-categorise-event", query.txs); // to be re-injected into uncategorised txs pool in parent
     },
   },

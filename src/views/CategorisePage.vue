@@ -18,6 +18,7 @@
               :query="this.query"
               @query-added-event="updateCategorised"
               @tx-categorised-event="updateCategorisedTxs"
+              @undo-categorise-event="reinjectTxs"
             />
             <CategoryView
               category-name="Household"
@@ -26,6 +27,7 @@
               :query="this.query"
               @query-added-event="updateCategorised"
               @tx-categorised-event="updateCategorisedTxs"
+              @undo-categorise-event="reinjectTxs"
             />
             <CategoryView
               category-name="Leisure"
@@ -34,6 +36,7 @@
               :query="this.query"
               @query-added-event="updateCategorised"
               @tx-categorised-event="updateCategorisedTxs"
+              @undo-categorise-event="reinjectTxs"
             />
             <CategoryView
               category-name="Food & Drink"
@@ -42,6 +45,7 @@
               :query="this.query"
               @query-added-event="updateCategorised"
               @tx-categorised-event="updateCategorisedTxs"
+              @undo-categorise-event="reinjectTxs"
             />
             <CategoryView
               category-name="Lifestyle"
@@ -50,6 +54,7 @@
               :query="this.query"
               @query-added-event="updateCategorised"
               @tx-categorised-event="updateCategorisedTxs"
+              @undo-categorise-event="reinjectTxs"
             />
             <CategoryView
               category-name="Income"
@@ -58,6 +63,7 @@
               :query="this.query"
               @query-added-event="updateCategorised"
               @tx-categorised-event="updateCategorisedTxs"
+              @undo-categorise-event="reinjectTxs"
             />
           </div>
         </div>
@@ -131,6 +137,9 @@ export default {
       );
       this.uncategorisedTxs = filteredArray;
       this.filteredTxs = this.uncategorisedTxs;
+    },
+    reinjectTxs(txs) {
+      this.uncategorisedTxs.push(...txs);
     },
   },
   data() {
