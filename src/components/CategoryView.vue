@@ -4,7 +4,9 @@
   <button @click="addTx(tx)" type="button" class="btn btn-primary mt-2 mb-2">
     {{ categoryName }}
   </button>
-  <p>{{ this.queries }}</p>
+  <li v-for="query in this.queries" :key="query">
+    {{ query }}
+  </li>
 </template>
 
 <script>
