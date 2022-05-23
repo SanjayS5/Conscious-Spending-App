@@ -9,5 +9,11 @@
         src="../assets/girl_barchart.png"
       />
     </div>
+    <router-link
+      :to="{
+        name: 'categorisePage',
+      }"
+      >Categorise Transactions
+    </router-link>
   </section>
 </template>

@@ -5,7 +5,7 @@
       <p><br /></p>
     </div>
     <router-view></router-view>
-    <router-link
+    <!-- <router-link
       :to="{
         params: {
           parsedTxs: JSON.stringify(this.txs),
@@ -13,7 +13,7 @@
         name: 'categorisePage',
       }"
       >Categorise Transactions
-    </router-link>
+    </router-link> -->
   </section>
 
   <!-- <section>
