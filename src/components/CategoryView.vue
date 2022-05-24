@@ -1,9 +1,9 @@
 <template>
   <h4>{{ categoryName }}</h4>
   <p>Total: {{ total }}</p>
-  <button @click="addTx(tx)" type="button" class="btn btn-primary mt-2 mb-2">
+  <!-- <button @click="addTx(tx)" type="button" class="btn btn-primary mt-2 mb-2">
     {{ categoryName }}
-  </button>
+  </button> -->
   <li
     v-for="query in this.queries"
     :key="query.query"

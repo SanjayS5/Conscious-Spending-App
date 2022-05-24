@@ -13,7 +13,7 @@
           class="btn btn-primary"
           v-for="(categoryString, category) in this.categories"
           :key="category"
-          @click="categoriseTx(category)"
+          @click="updateCategorisedTxs(category)"
         >
           {{ categoryString }}
         </button>
@@ -150,16 +150,21 @@ export default {
       // temp data, overwrites the previous query
       this.query = query;
     },
+    // addTx(txArray, category) {
+    //   // keep track of txs so we can re-insert them into the uncategorised pool if we decide to undo categorisation later
+    //   txArray.forEach((tx) => {
+    //     this.categorisedTxs[category].push(tx);
+    //   });
+    //   console.log("addTx", JSON.stringify(this.categorisedTxs));
+    // },
     updateCategorised(categorisedQuery) {
       this.categorised.push(categorisedQuery);
     },
     categoriseTx(category) {
       this.categorisedTxs[category].push(this.filteredTxs);
     },
-    updateCategorisedTxs(txObject) {
-      const { category, txs } = txObject;
-
-      this.categorisedTxs[category].push(...txs);
+    updateCategorisedTxs(category) {
+      this.categorisedTxs[category].push(...this.filteredTxs);
 
       const filterArray = (arr1, categoriesObj) => {
         let filtered = [...arr1];
@@ -177,6 +182,7 @@ export default {
       );
       this.uncategorisedTxs = filteredArray;
       this.filteredTxs = this.uncategorisedTxs;
+      console.log("updatecategoriseTx", JSON.stringify(this.categorisedTxs));
     },
     reinjectTxs(txs) {
       this.uncategorisedTxs.push(...txs);
