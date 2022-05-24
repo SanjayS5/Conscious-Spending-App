@@ -8,6 +8,30 @@
         </div>
       </section>
       <TxFilter :search="search" @search-event="updateQuery" />
+      <div class="d-flex justify-content-between mb-3">
+        <button
+          class="btn btn-primary"
+          v-for="(categoryString, category) in this.categories"
+          :key="category"
+          @click="categoriseTx(category)"
+        >
+          {{ categoryString }}
+        </button>
+        <button class="btn btn-primary" @click="ignoreTx">
+          Ignore Transaction
+        </button>
+      </div>
+      <!-- <div class="d-flex">
+        <button
+          class="btn btn-primary flex-fill"
+          v-for="(categoryString, category) in this.categories"
+          :key="category"
+          @click="categoriseTx(category)"
+        >
+          {{ categoryString }}
+        </button>
+      </div> -->
+
       <div class="row">
         <div class="col-4">
           <div>
@@ -109,12 +133,28 @@ export default {
       );
       this.filteredTxs = filteredArray;
     },
+    ignoreTx() {
+      this.ignoredTxs.push(...this.filteredTxs);
+      const filteredTxs = this.filterArray(
+        this.uncategorisedTxs,
+        this.filteredTxs
+      );
+      this.uncategorisedTxs = filteredTxs;
+      this.filteredTxs = this.uncategorisedTxs;
+    },
+    filterArray(arr1, arr2) {
+      let filtered = arr1.filter((item) => !arr2.includes(item));
+      return filtered;
+    },
     updateQuery(query) {
       // temp data, overwrites the previous query
       this.query = query;
     },
     updateCategorised(categorisedQuery) {
       this.categorised.push(categorisedQuery);
+    },
+    categoriseTx(category) {
+      this.categorisedTxs[category].push(this.filteredTxs);
     },
     updateCategorisedTxs(txObject) {
       const { category, txs } = txObject;
@@ -149,6 +189,14 @@ export default {
       filteredTxs: [], // temporary
       query: "", // temp data
       categorised: [],
+      categories: {
+        fixed: "Fixed",
+        household: "Household",
+        leisure: "Leisure",
+        fooddrink: "Food & Drink",
+        lifestyle: "Lifestyle",
+        income: "Income",
+      },
       categorisedTxs: {
         fixed: [],
         household: [],
@@ -157,6 +205,7 @@ export default {
         lifestyle: [],
         income: [],
       },
+      ignoredTxs: [],
     };
   },
 };
