@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     total() {
-      this.addTx(this.tx);
+      // this.addTx(this.tx);
 
       return this.txs.reduce(
         (previousValue, currentValue) => previousValue + currentValue
@@ -117,6 +117,19 @@ export default {
       queries: [],
       categorisedTxs: { category: this.category, txs: [] },
     };
+  },
+  watch: {
+    // whenever the tx (prop) array changes, this function will run
+    tx: {
+      handler(newValue, oldValue) {
+        // Note: `newValue` will be equal to `oldValue` here
+        // on nested mutations as long as the object itself
+        // hasn't been replaced.
+        console.log("TRIGGERED", newValue, oldValue);
+        this.addTx(newValue);
+      },
+      deep: true,
+    },
   },
 };
 </script>
