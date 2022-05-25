@@ -13,7 +13,10 @@
           class="btn btn-primary"
           v-for="(categoryString, category) in this.categories"
           :key="category"
-          @click="updateCategorisedTxs(category)"
+          @click="
+            updateCategorisedTxs(category);
+            saveQuery(category);
+          "
         >
           {{ categoryString }}
         </button>
@@ -36,9 +39,18 @@
         <div class="col-4">
           <div>
             <CategoryView
+              v-for="(categoryString, category) in this.categories"
+              :key="category"
+              :tx="this.categorisedTxs[category]"
+              :category-name="categoryString"
+              :category="category"
+              :query="this.categorisedQuery"
+              @query-added-event="resetCategorisedQuery"
+            />
+            <!-- <CategoryView
               category-name="Fixed Expenses"
               property-name="fixed"
-              :tx="this.filteredTxs"
+              :tx="this.categorisedTxs"
               :query="this.query"
               @query-added-event="updateCategorised"
               @tx-categorised-event="updateCategorisedTxs"
@@ -88,7 +100,7 @@
               @query-added-event="updateCategorised"
               @tx-categorised-event="updateCategorisedTxs"
               @undo-categorise-event="reinjectTxs"
-            />
+            /> -->
           </div>
         </div>
         <div class="col">
@@ -148,7 +160,16 @@ export default {
     },
     updateQuery(query) {
       // temp data, overwrites the previous query
-      this.query = query;
+      if (this.filteredTxs.length > 1) this.query = query;
+    },
+    saveQuery(category) {
+      // when a transaction is categorised, the final query is saved and sent to the categoryView page
+      if (this.filteredTxs.length > 1) {
+        this.categorisedQuery[category] = this.query;
+      }
+    },
+    resetCategorisedQuery() {
+      this.categorisedQuery = {};
     },
     // addTx(txArray, category) {
     //   // keep track of txs so we can re-insert them into the uncategorised pool if we decide to undo categorisation later
@@ -159,9 +180,6 @@ export default {
     // },
     updateCategorised(categorisedQuery) {
       this.categorised.push(categorisedQuery);
-    },
-    categoriseTx(category) {
-      this.categorisedTxs[category].push(this.filteredTxs);
     },
     updateCategorisedTxs(category) {
       this.categorisedTxs[category].push(...this.filteredTxs);
@@ -182,7 +200,6 @@ export default {
       );
       this.uncategorisedTxs = filteredArray;
       this.filteredTxs = this.uncategorisedTxs;
-      console.log("updatecategoriseTx", JSON.stringify(this.categorisedTxs));
     },
     reinjectTxs(txs) {
       this.uncategorisedTxs.push(...txs);
@@ -194,6 +211,7 @@ export default {
       uncategorisedTxs: [], // Remaining txs after some are categorised
       filteredTxs: [], // temporary
       query: "", // temp data
+      categorisedQuery: {}, // this gets sent to the category view
       categorised: [],
       categories: {
         fixed: "Fixed",
