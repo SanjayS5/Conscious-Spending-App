@@ -26,17 +26,12 @@ export default {
   },
   methods: {
     addTx(txArray) {
-      console.log("CatView category", this.category);
-      console.log("CatView query", JSON.stringify(this.query));
       // keep track of txs so we can re-insert them into the uncategorised pool if we decide to undo categorisation later
       const queryString = this.query[this.category];
-      console.log("CatView", queryString);
       const queryAndTxs = { query: queryString, txs: this.tx };
-      // if (Object.keys(this.query).length !== 0) {
-      //   this.queries.push(queryAndTxs);
-      //   this.$emit("query-added-event", this.query);
-      // }
+
       if (this.query[this.category] !== undefined) {
+        // prevents an empty list item being added to the query area
         this.queries.push(queryAndTxs);
         this.$emit("query-added-event", this.query);
       }
@@ -80,17 +75,6 @@ export default {
         (previousValue, currentValue) => previousValue + currentValue
       );
     },
-    // sum() {
-    //   // let total = 0;
-    //   // this.tx[this.categoryName].forEach((el) => {
-    //   //   const amount = el["Amount\r"].replace("-", "");
-    //   //   total += amount;
-    //   // });
-    //   // return total;
-    //   return this.txs.reduce(
-    //     (previousValue, currentValue) => previousValue + currentValue
-    //   );
-    // },
   },
   data() {
     return {

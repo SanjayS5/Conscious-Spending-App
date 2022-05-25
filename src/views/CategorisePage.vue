@@ -171,13 +171,6 @@ export default {
     resetCategorisedQuery() {
       this.categorisedQuery = {};
     },
-    // addTx(txArray, category) {
-    //   // keep track of txs so we can re-insert them into the uncategorised pool if we decide to undo categorisation later
-    //   txArray.forEach((tx) => {
-    //     this.categorisedTxs[category].push(tx);
-    //   });
-    //   console.log("addTx", JSON.stringify(this.categorisedTxs));
-    // },
     updateCategorised(categorisedQuery) {
       this.categorised.push(categorisedQuery);
     },
