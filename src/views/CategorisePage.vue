@@ -46,6 +46,7 @@
               :category="category"
               :query="this.categorisedQuery"
               @query-added-event="resetCategorisedQuery"
+              @undo-categorise-event="reinjectTxs"
             />
             <!-- <CategoryView
               category-name="Fixed Expenses"
@@ -195,6 +196,7 @@ export default {
       this.filteredTxs = this.uncategorisedTxs;
     },
     reinjectTxs(txs) {
+      console.log("REINJECTING", JSON.stringify(txs));
       this.uncategorisedTxs.push(...txs);
     },
   },
