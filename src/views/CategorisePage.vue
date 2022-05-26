@@ -1,6 +1,15 @@
 <template>
   <section>
     <div class="container">
+      <div>
+        <router-link
+          :to="{
+            name: 'Home',
+          }"
+          >Home Page
+        </router-link>
+        > Categorise
+      </div>
       <section>
         <h1>Categorise</h1>
         <div>

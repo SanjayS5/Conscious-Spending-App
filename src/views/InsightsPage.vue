@@ -8,6 +8,22 @@
 
 
 <template>
+  <div>
+    <router-link
+      :to="{
+        name: 'Home',
+      }"
+      >Home Page
+    </router-link>
+    >
+    <router-link
+      :to="{
+        name: 'categorisePage',
+      }"
+      >Categorise Transactions
+    </router-link>
+    > Insights
+  </div>
   <button
     @click="getInsights()"
     type="button"
