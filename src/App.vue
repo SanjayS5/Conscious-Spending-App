@@ -93,6 +93,5 @@ export default {
 
 Todos:
   Sort the transaction after undo
-  Add buttons to categorise based on a list in data, then use the same list to create categories and attach event listeners
-  to the buttons that update the corresponding category item
+  Add undo ability on Ignore Transaction
 -->

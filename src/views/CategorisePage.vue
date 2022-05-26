@@ -24,16 +24,6 @@
           Ignore Transaction
         </button>
       </div>
-      <!-- <div class="d-flex">
-        <button
-          class="btn btn-primary flex-fill"
-          v-for="(categoryString, category) in this.categories"
-          :key="category"
-          @click="categoriseTx(category)"
-        >
-          {{ categoryString }}
-        </button>
-      </div> -->
 
       <div class="row">
         <div class="col-4">
@@ -59,7 +49,8 @@
               params: { categorisedTxs: JSON.stringify(this.categorisedTxs) },
               name: 'Insights',
             }"
-            >Insights
+          >
+            <button class="btn btn-primary">View Insights</button>
           </router-link>
         </div>
       </div>
@@ -149,15 +140,6 @@ export default {
     reinjectTxs(txs, category) {
       this.uncategorisedTxs.push(...txs);
 
-      // let arrayCopy = [...this.uncategorisedTxs];
-
-      // const ids = arrayCopy.map((obj) => obj.id);
-      // const filtered = arrayCopy.filter(({ "Unique Id": id }, index) => {
-      //   // if (ids.includes(id, index + 1)) console.log("ID FOUND", id);
-      //   return !ids.includes(id, index + 1);
-      // });
-
-      // this.uncategorisedTxs = filtered;
       this.filteredTxs = this.uncategorisedTxs;
       this.undoCategoriseTxs(txs, category);
     },
