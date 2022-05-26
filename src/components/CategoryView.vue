@@ -1,6 +1,6 @@
 <template>
   <h4>{{ categoryName }}</h4>
-  <p>Total: {{ this.amountTotal }}</p>
+  <p>Total: {{ total }}</p>
   <!-- <button @click="addTx(tx)" type="button" class="btn btn-primary mt-2 mb-2">
     {{ categoryName }}
   </button> -->
@@ -37,11 +37,11 @@ export default {
         this.$emit("tx-categorised-event", this.categorisedTxs);
 
         // this should be a computed value + no subtraction needed. just recalculate new sum
-        this.amountTotal = 0;
-        txArray.forEach((tx) => {
-          const amount = tx["Amount\r"].replace("-", "");
-          this.amountTotal += Number(amount);
-        });
+        // this.amountTotal = 0;
+        // txArray.forEach((tx) => {
+        //   const amount = tx["Amount\r"].replace("-", "");
+        //   this.amountTotal += Number(amount);
+        // });
 
         const queryAndTxs = {
           query: this.query[this.category],
@@ -78,7 +78,6 @@ export default {
         return !query.query.includes(stringToRemove);
       });
       this.queries = [...remainingQueries];
-      console.log("UNDO THESE", JSON.stringify(query.txs));
       this.$emit("undo-categorise-event", query.txs, this.category); // to be re-injected into uncategorised txs pool in parent
     },
   },
@@ -90,6 +89,21 @@ export default {
   //     );
   //   },
   // },
+  computed: {
+    total() {
+      if (this.tx.length > 0) {
+        let totalAmount = 0;
+        this.tx.forEach((tx) => {
+          const amount = tx["Amount\r"].replace("-", "");
+          console.log("calculating", amount);
+          totalAmount += Number(amount);
+        });
+        return totalAmount;
+      } else {
+        return 0;
+      }
+    },
+  },
   data() {
     return {
       amountTotal: 0,
