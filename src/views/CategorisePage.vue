@@ -157,11 +157,10 @@ export default {
       this.undoCategoriseTxs(txs, category);
     },
     undoCategoriseTxs(txs, category) {
+      console.log("Undoing these", JSON.stringify(txs));
       this.categorisedTxs[category] = this.categorisedTxs[category].filter(
         (tx) => {
-          if (txs.includes(tx)) {
-            return !txs.includes(tx);
-          }
+          return !txs.includes(tx);
         }
       );
     },
