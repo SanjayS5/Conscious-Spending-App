@@ -46,9 +46,7 @@
               :category="category"
               :query="this.categorisedQuery"
               @query-added-event="resetCategorisedQuery"
-              @undo-categorise-event="
-                reinjectTxs(txs), undoCategoriseTxs(txs, category)
-              "
+              @undo-categorise-event="reinjectTxs"
             />
           </div>
         </div>
@@ -143,26 +141,26 @@ export default {
       this.uncategorisedTxs = filteredArray;
       this.filteredTxs = this.uncategorisedTxs;
     },
-    reinjectTxs(txs) {
+    reinjectTxs(txs, category) {
       this.uncategorisedTxs.push(...txs);
 
-      let arrayCopy = [...this.uncategorisedTxs];
+      // let arrayCopy = [...this.uncategorisedTxs];
 
-      const ids = arrayCopy.map((obj) => obj.id);
-      const filtered = arrayCopy.filter(({ "Unique Id": id }, index) => {
-        // if (ids.includes(id, index + 1)) console.log("ID FOUND", id);
-        return !ids.includes(id, index + 1);
-      });
+      // const ids = arrayCopy.map((obj) => obj.id);
+      // const filtered = arrayCopy.filter(({ "Unique Id": id }, index) => {
+      //   // if (ids.includes(id, index + 1)) console.log("ID FOUND", id);
+      //   return !ids.includes(id, index + 1);
+      // });
 
-      this.uncategorisedTxs = filtered;
+      // this.uncategorisedTxs = filtered;
       this.filteredTxs = this.uncategorisedTxs;
+      this.undoCategoriseTxs(txs, category);
     },
     undoCategoriseTxs(txs, category) {
       this.categorisedTxs[category] = this.categorisedTxs[category].filter(
         (tx) => {
           if (txs.includes(tx)) {
-            console.log("undoCat", tx);
-            !txs.includes(tx);
+            return !txs.includes(tx);
           }
         }
       );

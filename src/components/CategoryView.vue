@@ -59,7 +59,7 @@ export default {
     },
     undoCategorisation(query) {
       // filter, then return the queries to the parent to be re-injected
-      console.log("BEFORE UNDO", JSON.stringify(query));
+      // console.log("BEFORE UNDO", JSON.stringify(query));
       const filteredTxs = this.categorisedTxs.txs.filter((el) => {
         return !query.txs.includes(el);
       });
@@ -79,7 +79,7 @@ export default {
       });
       this.queries = [...remainingQueries];
       console.log("UNDO THESE", JSON.stringify(query.txs));
-      this.$emit("undo-categorise-event", query.txs); // to be re-injected into uncategorised txs pool in parent
+      this.$emit("undo-categorise-event", query.txs, this.category); // to be re-injected into uncategorised txs pool in parent
     },
   },
   // computed: {
