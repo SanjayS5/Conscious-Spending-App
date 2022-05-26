@@ -107,7 +107,7 @@ export default {
     },
     updateQuery(query) {
       // temp data, overwrites the previous query
-      if (this.filteredTxs.length > 1) this.query = query;
+      if (this.filteredTxs.length > 0) this.query = query;
     },
     saveQuery(category) {
       // when a transaction is categorised, the final query is saved and sent to the categoryView page
