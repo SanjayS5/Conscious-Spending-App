@@ -46,62 +46,10 @@
               :category="category"
               :query="this.categorisedQuery"
               @query-added-event="resetCategorisedQuery"
-              @undo-categorise-event="reinjectTxs"
+              @undo-categorise-event="
+                reinjectTxs(txs), undoCategoriseTxs(txs, category)
+              "
             />
-            <!-- <CategoryView
-              category-name="Fixed Expenses"
-              property-name="fixed"
-              :tx="this.categorisedTxs"
-              :query="this.query"
-              @query-added-event="updateCategorised"
-              @tx-categorised-event="updateCategorisedTxs"
-              @undo-categorise-event="reinjectTxs"
-            />
-            <CategoryView
-              category-name="Household"
-              property-name="household"
-              :tx="this.filteredTxs"
-              :query="this.query"
-              @query-added-event="updateCategorised"
-              @tx-categorised-event="updateCategorisedTxs"
-              @undo-categorise-event="reinjectTxs"
-            />
-            <CategoryView
-              category-name="Leisure"
-              property-name="leisure"
-              :tx="this.filteredTxs"
-              :query="this.query"
-              @query-added-event="updateCategorised"
-              @tx-categorised-event="updateCategorisedTxs"
-              @undo-categorise-event="reinjectTxs"
-            />
-            <CategoryView
-              category-name="Food & Drink"
-              property-name="fooddrink"
-              :tx="this.filteredTxs"
-              :query="this.query"
-              @query-added-event="updateCategorised"
-              @tx-categorised-event="updateCategorisedTxs"
-              @undo-categorise-event="reinjectTxs"
-            />
-            <CategoryView
-              category-name="Lifestyle"
-              property-name="lifestyle"
-              :tx="this.filteredTxs"
-              :query="this.query"
-              @query-added-event="updateCategorised"
-              @tx-categorised-event="updateCategorisedTxs"
-              @undo-categorise-event="reinjectTxs"
-            />
-            <CategoryView
-              category-name="Income"
-              property-name="income"
-              :tx="this.filteredTxs"
-              :query="this.query"
-              @query-added-event="updateCategorised"
-              @tx-categorised-event="updateCategorisedTxs"
-              @undo-categorise-event="reinjectTxs"
-            /> -->
           </div>
         </div>
         <div class="col">
@@ -196,8 +144,28 @@ export default {
       this.filteredTxs = this.uncategorisedTxs;
     },
     reinjectTxs(txs) {
-      console.log("REINJECTING", JSON.stringify(txs));
       this.uncategorisedTxs.push(...txs);
+
+      let arrayCopy = [...this.uncategorisedTxs];
+
+      const ids = arrayCopy.map((obj) => obj.id);
+      const filtered = arrayCopy.filter(({ "Unique Id": id }, index) => {
+        // if (ids.includes(id, index + 1)) console.log("ID FOUND", id);
+        return !ids.includes(id, index + 1);
+      });
+
+      this.uncategorisedTxs = filtered;
+      this.filteredTxs = this.uncategorisedTxs;
+    },
+    undoCategoriseTxs(txs, category) {
+      this.categorisedTxs[category] = this.categorisedTxs[category].filter(
+        (tx) => {
+          if (txs.includes(tx)) {
+            console.log("undoCat", tx);
+            !txs.includes(tx);
+          }
+        }
+      );
     },
   },
   data() {
