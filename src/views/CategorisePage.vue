@@ -17,18 +17,21 @@
         </div>
       </section>
       <TxFilter :search="search" @search-event="updateQuery" />
-      <div class="d-flex justify-content-between mb-3">
-        <button
-          class="btn btn-primary"
-          v-for="(categoryString, category) in this.categories"
-          :key="category"
-          @click="
-            updateCategorisedTxs(category);
-            saveQuery(category);
-          "
-        >
-          {{ categoryString }}
-        </button>
+      <div class="d-flex justify-content-between mb-4">
+        <div>
+          <button
+            class="btn btn-primary"
+            v-for="(categoryString, category) in this.categories"
+            :key="category"
+            @click="
+              updateCategorisedTxs(category);
+              saveQuery(category);
+            "
+          >
+            {{ categoryString }}
+          </button>
+        </div>
+
         <button class="btn btn-primary" @click="ignoreTx">
           Ignore Transaction
         </button>
