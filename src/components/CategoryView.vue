@@ -27,31 +27,34 @@ export default {
     addTx(txArray) {
       console.log("addTx fired");
 
-      let uncategorisedTxs = txArray.filter((tx) => {
-        return !(this.categorisedTxs.txs.indexOf(tx) > -1);
-      });
+      // prevents an empty list item being added to the query area
+      if (this.query[this.category] !== undefined) {
+        let uncategorisedTxs = txArray.filter((tx) => {
+          return !(this.categorisedTxs.txs.indexOf(tx) > -1);
+        });
 
-      this.categorisedTxs.txs.push(...uncategorisedTxs);
-      this.$emit("tx-categorised-event", this.categorisedTxs);
+        this.categorisedTxs.txs.push(...uncategorisedTxs);
+        this.$emit("tx-categorised-event", this.categorisedTxs);
 
-      // this should be a computed value + no subtraction needed. just recalculate new sum
-      this.amountTotal = 0;
-      txArray.forEach((tx) => {
-        const amount = tx["Amount\r"].replace("-", "");
-        this.amountTotal += Number(amount);
-      });
+        // this should be a computed value + no subtraction needed. just recalculate new sum
+        this.amountTotal = 0;
+        txArray.forEach((tx) => {
+          const amount = tx["Amount\r"].replace("-", "");
+          this.amountTotal += Number(amount);
+        });
 
-      const queryAndTxs = {
-        query: this.query[this.category],
-        txs: uncategorisedTxs,
-      };
+        const queryAndTxs = {
+          query: this.query[this.category],
+          txs: uncategorisedTxs,
+        };
 
-      if (this.queries.indexOf(queryAndTxs) > -1) {
-        console.log("tx already in query");
-      } else {
-        console.log("query added");
-        this.queries.push(queryAndTxs);
-        this.$emit("query-added-event", this.query);
+        if (this.queries.indexOf(queryAndTxs) > -1) {
+          console.log("tx already in query");
+        } else {
+          console.log("query added");
+          this.queries.push(queryAndTxs);
+          this.$emit("query-added-event", this.query);
+        }
       }
     },
     undoCategorisation(query) {
@@ -63,12 +66,12 @@ export default {
       this.categorisedTxs.txs = filteredTxs;
       // console.log("AFTER UNDO", JSON.stringify(this.categorisedTxs));
 
-      query.txs.forEach((el) => {
-        const amount = el["Amount\r"].replace("-", "");
-        // const indexToRemove = this.amountTotal.indexOf(amount);
-        // this.amountTotal.splice(indexToRemove);
-        this.amountTotal = this.amountTotal - Number(amount);
-      });
+      // query.txs.forEach((el) => {
+      //   const amount = el["Amount\r"].replace("-", "");
+      //   // const indexToRemove = this.amountTotal.indexOf(amount);
+      //   // this.amountTotal.splice(indexToRemove);
+      //   this.amountTotal = this.amountTotal - Number(amount);
+      // });
 
       const remainingQueries = this.queries.filter((el) => {
         const stringToRemove = el.query;
