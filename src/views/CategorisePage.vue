@@ -111,7 +111,7 @@ export default {
     },
     saveQuery(category) {
       // when a transaction is categorised, the final query is saved and sent to the categoryView page
-      if (this.filteredTxs.length > 1) {
+      if (this.filteredTxs.length > 0) {
         this.categorisedQuery[category] = this.query;
       }
     },
@@ -122,6 +122,11 @@ export default {
       this.categorised.push(categorisedQuery);
     },
     updateCategorisedTxs(category) {
+      if (!this.filteredTxs.length > 0) {
+        // prevents categorising queries when there are no txs that match the filter
+        return null;
+      }
+
       this.categorisedTxs[category].push(...this.filteredTxs);
 
       const filterArray = (arr1, categoriesObj) => {
