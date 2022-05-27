@@ -8,32 +8,46 @@
 
 
 <template>
-  <div>
-    <router-link
-      :to="{
-        name: 'Home',
-      }"
-      >Home Page
-    </router-link>
+  <section>
+    <div>
+      <router-link
+        :to="{
+          name: 'Home',
+        }"
+        >Home Page
+      </router-link>
+      >
+      <router-link
+        :to="{
+          name: 'categorisePage',
+        }"
+        >Categorise Transactions
+      </router-link>
+      > Insights
+    </div>
+    <button
+      @click="getInsights()"
+      type="button"
+      class="btn btn-primary mt-2 mb-2"
     >
-    <router-link
-      :to="{
-        name: 'categorisePage',
-      }"
-      >Categorise Transactions
-    </router-link>
-    > Insights
-  </div>
-  <button
-    @click="getInsights()"
-    type="button"
-    class="btn btn-primary mt-2 mb-2"
-  >
-    Show insights!
-  </button>
-  <h2>Insights</h2>
-  <div id="graph"></div>
-  <div id="categoriesByMonth"></div>
+      Display Insights!
+    </button>
+    <h2>Insights</h2>
+    <div id="graph"></div>
+    <div id="categoriesByMonth"></div>
+  </section>
+  <section>
+    <div>
+      <router-link
+        :to="{
+          params: { categorisedTxs: JSON.stringify(this.categorisedTxs) },
+          name: 'Budget',
+        }"
+      >
+        <button class="btn btn-primary">Build a Budget</button>
+      </router-link>
+    </div>
+  </section>
 </template>
 
 <script>
