@@ -95,4 +95,5 @@ Todos:
   Sort the transaction after undo
   Add undo ability on Ignore Transaction
   Add a budgeting page
+  cache data
 -->

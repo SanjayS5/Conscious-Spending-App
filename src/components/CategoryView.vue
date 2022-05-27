@@ -25,8 +25,6 @@ export default {
   },
   methods: {
     addTx(txArray) {
-      console.log("addTx fired");
-
       // prevents an empty list item being added to the query area
       if (this.query[this.category] !== undefined) {
         let uncategorisedTxs = txArray.filter((tx) => {
@@ -51,7 +49,6 @@ export default {
         if (this.queries.indexOf(queryAndTxs) > -1) {
           console.log("tx already in query");
         } else {
-          console.log("query added");
           this.queries.push(queryAndTxs);
           this.$emit("query-added-event", this.query);
         }
@@ -95,7 +92,7 @@ export default {
         let totalAmount = 0;
         this.tx.forEach((tx) => {
           const amount = tx["Amount\r"].replace("-", "");
-          console.log("calculating", amount);
+
           totalAmount += Number(amount);
         });
         return totalAmount;
