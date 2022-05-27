@@ -97,6 +97,13 @@
                       Add
                     </button>
                   </div>
+                  <div class="mb-2">
+                    <ul>
+                      <li :key="item.name" v-for="item in category.subItems">
+                        {{ item.name }}: {{ item.amount }}
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
               <div
@@ -128,6 +135,17 @@
                   <td>{{ category.total }}</td>
                   <td>{{ category.percentage }}</td>
                 </tr>
+                <tr>
+                  <td><b>Total Allocated</b></td>
+                  <td>
+                    <b>
+                      <span style="border-bottom: double black">
+                        {{ calculateTotalAllocated }}
+                      </span>
+                    </b>
+                  </td>
+                  <td>{{ calculatePercentageOfIncome }}</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -157,7 +175,6 @@ export default {
       });
       this.updateCategoryTotal(categoryObj);
       this.updatePercentageOfIncome(categoryObj);
-      console.log(JSON.stringify(categoryObj));
     },
     updateCategoryTotal(categoryObj) {
       categoryObj.total = 0; // removes the need to subtract when item is removed
@@ -216,6 +233,30 @@ export default {
         },
       },
     };
+  },
+  computed: {
+    // return sum of totals for all categories
+    calculateTotalAllocated() {
+      let sumOfTotals = 0;
+      for (let category in this.BudgetData) {
+        if (category != "income") {
+          sumOfTotals += this.BudgetData[category].total;
+        }
+      }
+      return sumOfTotals;
+    },
+    // caculate the percentage of income for all categories
+    calculatePercentageOfIncome() {
+      let percentage = 0;
+      for (let category in this.BudgetData) {
+        if (category != "income") {
+          percentage +=
+            (this.BudgetData[category].total / this.BudgetData.income.total) *
+            100;
+        }
+      }
+      return percentage ? percentage : 0;
+    },
   },
 };
 </script>
