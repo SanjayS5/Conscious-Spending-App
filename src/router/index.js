@@ -17,17 +17,6 @@ const routes = [
         name: 'categorisePage',
         component: CategorisePage,
     },
-    // {
-    //     // path: '/categorise/:uncategorisedTxs/:txs/:filteredTxs',
-    //     path: '/categorise/:parsedTxs',
-    //     name: 'categorisePage',
-    //     component: CategorisePage,
-    //     props: route => ({
-    //         // uncategorisedTxs: JSON.parse(route.params.uncategorisedTxs),
-    //         // filteredTxs: JSON.parse(route.params.filteredTxs),
-    //         parsedTxs: JSON.parse(route.params.parsedTxs)
-    //     })
-    // },
     {
         path: '/InsightsPage/:categorisedTxs',
         name: 'Insights',
