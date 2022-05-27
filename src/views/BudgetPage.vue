@@ -75,21 +75,24 @@
                   <div class="input-group mb-4">
                     <span class="input-group-text">{{ category.label }}</span>
                     <input
+                      v-model.lazy="category.tempItemName"
                       type="text"
-                      placeholder="Example: Rent"
+                      placeholder="Enter a name"
                       aria-label="Name"
                       class="form-control"
                     />
                     <input
+                      v-model.number="category.tempItemAmount"
                       type="text"
                       aria-label="Amount"
-                      placeholder="Example: 1000"
+                      placeholder="Eg. 1000"
                       class="form-control"
                     />
                     <button
                       class="btn btn-outline-secondary"
                       type="button"
                       id="button-addon2"
+                      @click="addItem(category)"
                     >
                       Add
                     </button>
@@ -121,10 +124,9 @@
               </thead>
               <tbody>
                 <tr :key="category.label" v-for="category in BudgetData">
-                  <!-- <TxRow :tx="tx" /> -->
-                  <div class="mb-4">
-                    <td>{{ category.label }}</td>
-                  </div>
+                  <td>{{ category.label }}</td>
+                  <td>{{ category.total }}</td>
+                  <td>{{ category.percentage }}</td>
                 </tr>
               </tbody>
             </table>
@@ -147,14 +149,44 @@ export default {
     tx: Array,
     query: Object,
   },
-  methods: {},
+  methods: {
+    addItem(categoryObj) {
+      categoryObj.subItems.push({
+        name: categoryObj.tempItemName,
+        amount: categoryObj.tempItemAmount,
+      });
+      this.updateCategoryTotal(categoryObj);
+      this.updatePercentageOfIncome(categoryObj);
+      console.log(JSON.stringify(categoryObj));
+    },
+    updateCategoryTotal(categoryObj) {
+      categoryObj.total = 0; // removes the need to subtract when item is removed
+      categoryObj.subItems.forEach((item) => {
+        categoryObj.total += item.amount;
+      });
+    },
+    updatePercentageOfIncome(categoryObj) {
+      // categoryObj.percentage = (categoryObj.total / this.income.total) * 100;
+      if (categoryObj.label != "Income") {
+        categoryObj.percentage =
+          (categoryObj.total / this.BudgetData.income.total) * 100;
+      }
+    },
+  },
   data() {
     return {
       BudgetData: {
-        income: { label: "Income", amount: 0, total: 0, percentage: 0 },
+        income: {
+          label: "Income",
+          subItems: [], // {itemName: "", amount: 0}
+          total: 0,
+          // percentage: 0,
+          tempItemName: "",
+          tempItemAmount: "",
+        },
         fixedExpenses: {
           label: "Fixed Expenses",
-          subItems: [], // {itemName: "", amount: 0}
+          subItems: [],
           total: 0,
           percentage: 0,
         },
