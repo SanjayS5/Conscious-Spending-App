@@ -230,17 +230,6 @@ export default {
         }
       }
 
-      // var values = [100, 30, 20, 50];
-      // var labels = ["", "Exp", "Elect", "Emerg"];
-      // var parents = ["Income", "Income", "Income", "Income"];
-
-      // var values = [100, 70];
-      // var labels = ["Income", "Exp"];
-      // var parents = ["", "Income"];
-      console.log("VALUES", JSON.stringify(values));
-      console.log("LABELS", JSON.stringify(labels));
-      console.log("PARENTS", JSON.stringify(parents));
-
       var data = [
         {
           type: "treemap",
@@ -257,11 +246,6 @@ export default {
         title: "Proportion of Your Income Allocated to Each Category",
         font: { size: 16 },
         paper_bgcolor: "black",
-        // plot_bgcolor: "red",
-        // plot_bgcolor: "rgb(0, 0, 0)",
-        // margin: { l: 0, r: 0, b: 0, t: 0 },
-        // width: 500,
-        // height: 500,
       };
 
       Plotly.newPlot("futurePlan", data, layout);
@@ -272,7 +256,7 @@ export default {
       BudgetData: {
         income: {
           label: "Income",
-          subItems: [], // {itemName: "", amount: 0}
+          subItems: [], // something like {itemName: "", amount: 0}
           total: 0,
           // percentage: 0,
           tempItemName: "",
@@ -344,6 +328,7 @@ export default {
   background-color: #711a37;
   color: #fff;
   border: none;
+  width: 25%;
 }
 
 .nav-link.active {
