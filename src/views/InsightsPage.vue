@@ -8,44 +8,42 @@
 
 
 <template>
-  <section>
-    <div class="mb-5">
-      <!-- spacer -->
-      <p><br /></p>
-    </div>
-    <div>
-      <router-link
-        :to="{
-          name: 'Home',
-        }"
-        >Home Page
-      </router-link>
+  <section class="container">
+    <section>
+      <div class="mb-5">
+        <!-- spacer -->
+        <p><br /></p>
+      </div>
+      <div>
+        <router-link
+          :to="{
+            name: 'Home',
+          }"
+          >Home Page
+        </router-link>
+        >
+        <router-link
+          :to="{
+            name: 'categorisePage',
+          }"
+          >Categorise Transactions
+        </router-link>
+        > Insights
+      </div>
+      <div class="mb-5">
+        <!-- spacer -->
+        <p><br /></p>
+      </div>
+
+      <h2>Insights</h2>
+      <button
+        @click="getInsights()"
+        type="button"
+        class="btn btn-primary mt-2 mb-2"
+        style="display: inline"
       >
-      <router-link
-        :to="{
-          name: 'categorisePage',
-        }"
-        >Categorise Transactions
-      </router-link>
-      > Insights
-    </div>
-    <div class="mb-5">
-      <!-- spacer -->
-      <p><br /></p>
-    </div>
-    <button
-      @click="getInsights()"
-      type="button"
-      class="btn btn-primary mt-2 mb-2"
-    >
-      Display Insights!
-    </button>
-    <h2>Insights</h2>
-    <div id="graph"></div>
-    <div id="categoriesByMonth"></div>
-  </section>
-  <section>
-    <div>
+        Display Insights!
+      </button>
       <router-link
         :to="{
           params: { categorisedTxs: JSON.stringify(this.categorisedTxs) },
@@ -54,7 +52,16 @@
       >
         <button class="btn btn-primary">Build a Budget</button>
       </router-link>
-    </div>
+      <div class="mb-5">
+        <div id="graph"></div>
+        <div id="categoriesByMonth"></div>
+      </div>
+    </section>
+    <!-- <section>
+      <div>
+        
+      </div>
+    </section> -->
   </section>
 </template>
 
