@@ -2,7 +2,7 @@
   <div>
     Upload your csv here:
     <input
-      class="form-control mb-4"
+      class="form-control mb-4 bg-dark text-white"
       type="file"
       ref="myFile"
       @change="selectedFile"

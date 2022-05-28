@@ -1,6 +1,10 @@
 <template>
   <section>
     <div class="container">
+      <div class="mb-5">
+        <!-- spacer -->
+        <p><br /></p>
+      </div>
       <div>
         <router-link
           :to="{
@@ -9,6 +13,10 @@
           >Home Page
         </router-link>
         > Categorise
+      </div>
+      <div class="mb-2">
+        <!-- spacer -->
+        <p><br /></p>
       </div>
       <section>
         <h1>Categorise</h1>
