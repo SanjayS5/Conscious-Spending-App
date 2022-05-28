@@ -98,6 +98,7 @@
                       aria-label="Amount"
                       placeholder="Eg. 1000"
                       class="form-control bg-dark text-white"
+                      @keyup.enter="addItem(category)"
                     />
                     <button
                       class="btn btn-outline-secondary"
@@ -253,7 +254,7 @@ export default {
       ];
 
       var layout = {
-        title: "Treemap",
+        title: "Proportion of Your Income Allocated to Each Category",
         font: { size: 16 },
         paper_bgcolor: "black",
         // plot_bgcolor: "red",
