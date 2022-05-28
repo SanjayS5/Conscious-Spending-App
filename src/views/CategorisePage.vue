@@ -59,7 +59,7 @@
               @undo-categorise-event="reinjectTxs"
             />
           </div>
-          <div>
+          <div class="mb-5">
             <router-link
               :to="{
                 params: { categorisedTxs: JSON.stringify(this.categorisedTxs) },
@@ -68,6 +68,11 @@
             >
               <button class="btn btn-primary">View Insights</button>
             </router-link>
+          </div>
+          <div>
+            <button class="btn btn-secondary" @click="resetData">
+              Reset All Data
+            </button>
           </div>
         </div>
         <div class="col">
@@ -129,9 +134,9 @@ export default {
     resetCategorisedQuery() {
       this.categorisedQuery = {};
     },
-    updateCategorised(categorisedQuery) {
-      this.categorised.push(categorisedQuery);
-    },
+    // updateCategorised(categorisedQuery) {
+    //   this.categorised.push(categorisedQuery);
+    // },
     updateCategorisedTxs(category) {
       if (!this.filteredTxs.length > 0) {
         // prevents categorising queries when there are no txs that match the filter
@@ -164,12 +169,60 @@ export default {
       this.undoCategoriseTxs(txs, category);
     },
     undoCategoriseTxs(txs, category) {
-      console.log("Undoing these", JSON.stringify(txs));
       this.categorisedTxs[category] = this.categorisedTxs[category].filter(
         (tx) => {
           return !txs.includes(tx);
         }
       );
+    },
+    resetData() {
+      localStorage.setItem(
+        "categorisedTxs",
+        JSON.stringify({
+          fixed: [],
+          household: [],
+          leisure: [],
+          fooddrink: [],
+          lifestyle: [],
+          income: [],
+        })
+      );
+      localStorage.setItem("filteredTxs", JSON.stringify([]));
+      localStorage.setItem("uncategorisedTxs", JSON.stringify([]));
+      localStorage.setItem("categorisedQuery", JSON.stringify({}));
+    },
+  },
+  mounted() {
+    this.categorisedTxs =
+      JSON.parse(localStorage.getItem("categorisedTxs")) || this.categorisedTxs;
+    this.filteredTxs = JSON.parse(localStorage.getItem("filteredTxs")) || [];
+    this.uncategorisedTxs =
+      JSON.parse(localStorage.getItem("uncategorisedTxs")) || [];
+    this.categorisedQuery =
+      JSON.parse(localStorage.getItem("categorisedQuery")) || {};
+  },
+  watch: {
+    categorisedTxs: {
+      handler(newValue, oldValue) {
+        // Note: `newValue` will be equal to `oldValue` here
+        // on nested mutations as long as the object itself
+        // hasn't been replaced.
+        if (newValue !== oldValue) {
+          // pass
+        }
+
+        localStorage.setItem("categorisedTxs", JSON.stringify(newValue));
+        localStorage.setItem("filteredTxs", JSON.stringify(this.filteredTxs));
+        localStorage.setItem(
+          "uncategorisedTxs",
+          JSON.stringify(this.uncategorisedTxs)
+        );
+        localStorage.setItem(
+          "categorisedQuery",
+          JSON.stringify(this.categorisedQuery)
+        );
+      },
+      deep: true,
     },
   },
   data() {
@@ -179,7 +232,7 @@ export default {
       filteredTxs: [], // temporary
       query: "", // temp data
       categorisedQuery: {}, // this gets sent to the category view
-      categorised: [],
+      // categorised: [],
       categories: {
         fixed: "Fixed Expenses",
         household: "Household",

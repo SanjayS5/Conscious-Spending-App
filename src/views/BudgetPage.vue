@@ -2,6 +2,10 @@
   <section class="container">
     <section>
       <div class="mb-3">
+        <!-- spacer -->
+        <p><br /></p>
+      </div>
+      <div class="mb-5">
         <router-link
           :to="{
             name: 'Home',
@@ -23,11 +27,18 @@
         >
           Insights
         </router-link>
-        > Budget
+        > Automated Finance Planner
       </div>
     </section>
     <section>
-      <div class="mb-3"><h1>Budget</h1></div>
+      <div class="mb-5">
+        <h1>Automated Finance Planner</h1>
+        <p>
+          <br />
+          Using the insights from your previous spending patterns, you can
+          create a conscious spending plan.
+        </p>
+      </div>
       <!-- The container for input and table begins here -->
       <div class="row">
         <div class="col-6">
@@ -79,14 +90,14 @@
                       type="text"
                       placeholder="Enter a name"
                       aria-label="Name"
-                      class="form-control"
+                      class="form-control bg-dark text-white"
                     />
                     <input
                       v-model.number="category.tempItemAmount"
                       type="text"
                       aria-label="Amount"
                       placeholder="Eg. 1000"
-                      class="form-control"
+                      class="form-control bg-dark text-white"
                     />
                     <button
                       class="btn btn-outline-secondary"
@@ -121,7 +132,7 @@
           <!-- TABLE COLUMN GOES HERE -->
 
           <div>
-            <table class="table table-striped">
+            <table class="table text-muted">
               <thead class="thead-dark">
                 <tr>
                   <th>Category</th>
@@ -154,11 +165,15 @@
         </div>
       </div>
       <!-- The container for input and table ends here -->
+      <div>
+        <div id="futurePlan"></div>
+      </div>
     </section>
   </section>
 </template>
 
 <script>
+import Plotly from "plotly.js-dist/plotly";
 export default {
   name: "BudgetView",
   props: {
@@ -175,6 +190,7 @@ export default {
       });
       this.updateCategoryTotal(categoryObj);
       this.updatePercentageOfIncome(categoryObj);
+      this.updateTreeMap();
     },
     updateCategoryTotal(categoryObj) {
       categoryObj.total = 0; // removes the need to subtract when item is removed
@@ -188,6 +204,66 @@ export default {
         categoryObj.percentage =
           (categoryObj.total / this.BudgetData.income.total) * 100;
       }
+    },
+    updateTreeMap() {
+      let values = [];
+      for (let category in this.BudgetData) {
+        if (category != "income") {
+          values.push(this.BudgetData[category].percentage);
+        } else {
+          values.push(100);
+        }
+      }
+
+      let labels = [];
+      for (let category in this.BudgetData) {
+        labels.push(this.BudgetData[category].label);
+      }
+
+      let parents = [];
+      for (let category in this.BudgetData) {
+        if (category == "income") {
+          parents.push("");
+        } else {
+          parents.push("Income");
+        }
+      }
+
+      // var values = [100, 30, 20, 50];
+      // var labels = ["", "Exp", "Elect", "Emerg"];
+      // var parents = ["Income", "Income", "Income", "Income"];
+
+      // var values = [100, 70];
+      // var labels = ["Income", "Exp"];
+      // var parents = ["", "Income"];
+      console.log("VALUES", JSON.stringify(values));
+      console.log("LABELS", JSON.stringify(labels));
+      console.log("PARENTS", JSON.stringify(parents));
+
+      var data = [
+        {
+          type: "treemap",
+          values: values,
+          labels: labels,
+          parents: parents,
+          // marker: { colorscale: "Blues" },
+          branchvalues: "total",
+          textinfo: "label+value+percent parent+percent",
+        },
+      ];
+
+      var layout = {
+        title: "Treemap",
+        font: { size: 16 },
+        paper_bgcolor: "black",
+        // plot_bgcolor: "red",
+        // plot_bgcolor: "rgb(0, 0, 0)",
+        // margin: { l: 0, r: 0, b: 0, t: 0 },
+        // width: 500,
+        // height: 500,
+      };
+
+      Plotly.newPlot("futurePlan", data, layout);
     },
   },
   data() {
@@ -260,3 +336,30 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+.input-group-text {
+  background-color: #711a37;
+  color: #fff;
+  border: none;
+}
+
+.nav-link.active {
+  background-color: #4a2431;
+  color: #fff;
+}
+
+td {
+  height: 60px;
+  vertical-align: middle;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+.table > :not(caption) > * > * {
+  border-bottom-width: 0px;
+}
+</style>

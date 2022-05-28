@@ -124,10 +124,12 @@ export default {
         legend: {
           x: 0,
           y: 1.0,
-          bgcolor: "rgba(255, 255, 255, 0)",
-          bordercolor: "rgba(255, 255, 255, 0)",
+          bgcolor: "black",
+          bordercolor: "black",
         },
         bargap: 0.15,
+        paper_bgcolor: "rgb(0, 0, 0)",
+        plot_bgcolor: "rgb(0, 0, 0)",
       };
 
       Plotly.newPlot("graph", data, layout);
@@ -171,6 +173,8 @@ export default {
 
       var layout = {
         title: "Monthly Expenses by Category",
+        paper_bgcolor: "rgb(0, 0, 0)",
+        plot_bgcolor: "rgb(0, 0, 0)",
         xaxis: {
           tickfont: {
             size: 14,
@@ -192,8 +196,8 @@ export default {
         legend: {
           x: 0,
           y: 1.0,
-          bgcolor: "rgba(255, 255, 255, 0)",
-          bordercolor: "rgba(255, 255, 255, 0)",
+          bgcolor: "black",
+          bordercolor: "black",
         },
         bargap: 0.15,
         barmode: "group",

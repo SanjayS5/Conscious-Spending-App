@@ -115,10 +115,9 @@ export default {
         // Note: `newValue` will be equal to `oldValue` here
         // on nested mutations as long as the object itself
         // hasn't been replaced.
-        // console.log("TRIGGERED", JSON.stringify(newValue));
-        // console.log("RETRIGGERED", JSON.stringify(oldValue));
+
         if (newValue !== oldValue) {
-          console.log("IGNORE watcher in CatView => old value", oldValue);
+          // pass
         }
         this.addTx(newValue);
       },
