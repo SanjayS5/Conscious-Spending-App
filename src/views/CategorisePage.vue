@@ -59,19 +59,19 @@
               @undo-categorise-event="reinjectTxs"
             />
           </div>
+          <div>
+            <router-link
+              :to="{
+                params: { categorisedTxs: JSON.stringify(this.categorisedTxs) },
+                name: 'Insights',
+              }"
+            >
+              <button class="btn btn-primary">View Insights</button>
+            </router-link>
+          </div>
         </div>
         <div class="col">
           <TransactionRows :txs="this.filteredTxs" />
-        </div>
-        <div>
-          <router-link
-            :to="{
-              params: { categorisedTxs: JSON.stringify(this.categorisedTxs) },
-              name: 'Insights',
-            }"
-          >
-            <button class="btn btn-primary">View Insights</button>
-          </router-link>
         </div>
       </div>
     </div>
@@ -181,7 +181,7 @@ export default {
       categorisedQuery: {}, // this gets sent to the category view
       categorised: [],
       categories: {
-        fixed: "Fixed",
+        fixed: "Fixed Expenses",
         household: "Household",
         leisure: "Leisure",
         fooddrink: "Food & Drink",

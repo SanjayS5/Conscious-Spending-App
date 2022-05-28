@@ -1,7 +1,7 @@
 <template>
   <div>
     <input
-      class="input-group mb-3 bg-dark text-white"
+      class="input-group mb-3 bg-dark text-white rounded"
       id="search"
       v-model="searchTerm"
       @keyup="searchAndEmit"
