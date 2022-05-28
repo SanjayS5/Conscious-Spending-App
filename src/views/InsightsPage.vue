@@ -9,6 +9,10 @@
 
 <template>
   <section>
+    <div class="mb-5">
+      <!-- spacer -->
+      <p><br /></p>
+    </div>
     <div>
       <router-link
         :to="{
@@ -24,6 +28,10 @@
         >Categorise Transactions
       </router-link>
       > Insights
+    </div>
+    <div class="mb-5">
+      <!-- spacer -->
+      <p><br /></p>
     </div>
     <button
       @click="getInsights()"
