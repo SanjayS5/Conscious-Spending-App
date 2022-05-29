@@ -34,13 +34,6 @@ export default {
         this.categorisedTxs.txs.push(...uncategorisedTxs);
         this.$emit("tx-categorised-event", this.categorisedTxs);
 
-        // this should be a computed value + no subtraction needed. just recalculate new sum
-        // this.amountTotal = 0;
-        // txArray.forEach((tx) => {
-        //   const amount = tx["Amount\r"].replace("-", "");
-        //   this.amountTotal += Number(amount);
-        // });
-
         const queryAndTxs = {
           query: this.query[this.category],
           txs: uncategorisedTxs,
@@ -61,14 +54,6 @@ export default {
         return !query.txs.includes(el);
       });
       this.categorisedTxs.txs = filteredTxs;
-      // console.log("AFTER UNDO", JSON.stringify(this.categorisedTxs));
-
-      // query.txs.forEach((el) => {
-      //   const amount = el["Amount\r"].replace("-", "");
-      //   // const indexToRemove = this.amountTotal.indexOf(amount);
-      //   // this.amountTotal.splice(indexToRemove);
-      //   this.amountTotal = this.amountTotal - Number(amount);
-      // });
 
       const remainingQueries = this.queries.filter((el) => {
         const stringToRemove = el.query;
@@ -78,20 +63,13 @@ export default {
       this.$emit("undo-categorise-event", query.txs, this.category); // to be re-injected into uncategorised txs pool in parent
     },
   },
-  // computed: {
-  //   total() {
-  //     this.addTx(this.tx);
-  //     return this.txs.reduce(
-  //       (previousValue, currentValue) => previousValue + currentValue
-  //     );
-  //   },
-  // },
+
   computed: {
     total() {
       if (this.tx.length > 0) {
         let totalAmount = 0;
         this.tx.forEach((tx) => {
-          const amount = tx["Amount\r"].replace("-", "");
+          const amount = tx["Amount"].replace("-", "");
 
           totalAmount += Number(amount);
         });

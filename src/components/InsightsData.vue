@@ -30,7 +30,7 @@ export default {
           let date = el.Date.replace("/", "-").replace("/", "");
           date = date.slice(0, 7);
           if (!(date in monthlyData)) monthlyData[date] = 0;
-          let amount = el["Amount\r"].replace("-", "").replace("\r", "");
+          let amount = el["Amount"].replace("-", "");
           amount = parseFloat(amount);
           monthlyData[date] += amount;
         });
@@ -89,7 +89,7 @@ export default {
           if (!(date in categoriesByMonth[category]))
             categoriesByMonth[category][date] = 0;
 
-          let amount = el["Amount\r"].replace("-", "").replace("\r", "");
+          let amount = el["Amount"].replace("-", "");
           amount = parseFloat(amount);
           categoriesByMonth[category][date] += amount;
         });
