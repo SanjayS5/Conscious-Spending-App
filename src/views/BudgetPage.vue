@@ -207,6 +207,9 @@ export default {
         name: categoryObj.tempItemName,
         amount: categoryObj.tempItemAmount,
       });
+      categoryObj.tempItemName = "";
+      categoryObj.tempItemAmount = "";
+
       this.updateCategoryTotal(categoryObj);
       this.updatePercentageOfIncome(categoryObj);
       this.updateTreeMap();
