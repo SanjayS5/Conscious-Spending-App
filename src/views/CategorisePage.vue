@@ -19,7 +19,31 @@
         <p><br /></p>
       </div>
       <section>
-        <h1>Categorise</h1>
+        <div class="mb-5">
+          <h1>Categorise</h1>
+          <p>
+            On this page, you'll t ake a snapshot of your current finances. This
+            will help you understand where your money has been going. Don't
+            worry about making it perfect!
+          </p>
+          <p>
+            Here's a brief description for some of categories which can be
+            interpreted in several ways:
+          </p>
+          <h4>Fixed Expenses</h4>
+          <p>
+            Recurring expenses you cannot stop paying for, even if you wanted
+            to. Eg. Rent, utilities, debt repayments etc.
+          </p>
+          <h4>Household</h4>
+          <p>
+            Groceries, furniture, plants etc. Basically any physical item you
+            bring into your house.
+          </p>
+          <h4>Lifestyle</h4>
+          <p>Clothing, gym, social clubs, etc.</p>
+        </div>
+
         <div>
           <FileParser @file-parsed-event="initialiseTxsData" />
         </div>

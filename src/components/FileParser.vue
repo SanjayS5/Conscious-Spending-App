@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Upload your csv here:</p>
+    <h5>Upload your csv here:</h5>
 
     <input
       class="form-control mb-4 bg-dark text-white"
