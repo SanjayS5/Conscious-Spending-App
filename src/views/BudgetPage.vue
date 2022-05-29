@@ -114,7 +114,11 @@
                   </div>
                   <div class="mb-2">
                     <ul>
-                      <li :key="item.name" v-for="item in category.subItems">
+                      <li
+                        :key="item.name"
+                        v-for="item in category.subItems"
+                        @click="undoAddItem(category, item)"
+                      >
                         {{ item.name }}: {{ item.amount }}
                       </li>
                     </ul>
@@ -263,6 +267,22 @@ export default {
       };
 
       Plotly.newPlot("futurePlan", data, layout);
+    },
+    undoAddItem(categoryObj, item) {
+      // this.BudgetData[this.category].subItems.pop();
+      // this.updateCategoryTotal(this.BudgetData[this.category]);
+      // this.updatePercentageOfIncome(this.BudgetData[this.category]);
+      // this.updateTreeMap();
+
+      const itemAsList = [item]; // ".includes" only works on lists
+      let filteredArray = categoryObj.subItems.filter(
+        (itemObj) => !itemAsList.includes(itemObj)
+      );
+      categoryObj.subItems = filteredArray;
+
+      this.updateCategoryTotal(categoryObj);
+      this.updatePercentageOfIncome(categoryObj);
+      this.updateTreeMap();
     },
   },
   data() {
