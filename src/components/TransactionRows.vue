@@ -1,7 +1,7 @@
 <template>
   <h3>Transaction Rows</h3>
   <div>
-    <table class="table text-muted">
+    <table class="table table-striped text-muted">
       <thead class="thead-dark">
         <tr>
           <th>Date</th>
@@ -36,3 +36,16 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+td {
+  /* border-bottom: 1px solid grey; */
+  border: none;
+  color: rgb(148, 145, 145);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: #171717;
+  color: rgb(148, 145, 145);
+}
+</style>

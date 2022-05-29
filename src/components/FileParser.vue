@@ -1,6 +1,7 @@
 <template>
   <div>
-    Upload your csv here:
+    <p>Upload your csv here:</p>
+
     <input
       class="form-control mb-4 bg-dark text-white"
       type="file"
