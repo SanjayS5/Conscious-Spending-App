@@ -83,6 +83,9 @@
                 <div class="mb-5"></div>
                 <!-- Spacer -->
                 <div :key="category.label" v-for="category in BudgetData">
+                  <h6>
+                    {{ category.description }}
+                  </h6>
                   <div class="input-group mb-4">
                     <span class="input-group-text">{{ category.label }}</span>
                     <input
@@ -153,6 +156,17 @@
                     <b>
                       <span style="border-bottom: double black">
                         {{ calculateTotalAllocated }}
+                      </span>
+                    </b>
+                  </td>
+                  <td>{{ calculatePercentageOfIncome }}</td>
+                </tr>
+                <tr>
+                  <td><b>Remaining Unallocated</b></td>
+                  <td>
+                    <b>
+                      <span style="font-weight: 800">
+                        {{ calculateRemainingAllocated }}
                       </span>
                     </b>
                   </td>
@@ -264,30 +278,35 @@ export default {
         },
         fixedExpenses: {
           label: "Fixed Expenses",
+          description: "Recommended < 40%",
           subItems: [],
           total: 0,
           percentage: 0,
         },
         electiveExpenses: {
           label: "Elective Expenses",
+          description: "Recommended ~ 20%",
           subItems: [],
           total: 0,
           percentage: 0,
         },
         emergencyBuffer: {
           label: "Emergency Buffer",
+          description: "Recommended ~ 10%",
           subItems: [],
           total: 0,
           percentage: 0,
         },
         investments: {
           label: "Investments",
+          description: "Recommended ~ 10-20%",
           subItems: [],
           total: 0,
           percentage: 0,
         },
         guiltFreeMoney: {
           label: "Guilt Free Money",
+          description: "Recommended ~ 10%",
           subItems: [],
           total: 0,
           percentage: 0,
@@ -317,6 +336,9 @@ export default {
         }
       }
       return percentage ? percentage : 0;
+    },
+    calculateRemainingAllocated() {
+      return this.BudgetData.income.total - this.calculateTotalAllocated;
     },
   },
 };
