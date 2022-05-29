@@ -30,7 +30,13 @@ const routes = [
         // props are always passed in as a string (because they're url params but there may be a cleaner way)
         props: route => ({ categorisedTxs: JSON.parse(route.params.categorisedTxs) }),
         component: BudgetPage
-    }
+    },
+    //catchall route
+    // {
+    //     path: '/:catchAll(.*)',
+    //     name: 'Home',
+    //     component: HomePage
+    // }
 ]
 
 const router = createRouter({
