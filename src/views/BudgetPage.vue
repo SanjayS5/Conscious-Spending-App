@@ -114,12 +114,15 @@
                   </div>
                   <div class="mb-2">
                     <ul>
-                      <li
-                        :key="item.name"
-                        v-for="item in category.subItems"
-                        @click="undoAddItem(category, item)"
-                      >
-                        {{ item.name }}: {{ item.amount }}
+                      <li :key="item.name" v-for="item in category.subItems">
+                        <button
+                          class="btn-primary"
+                          id="subitem-btn"
+                          @click="undoAddItem(category, item)"
+                        >
+                          X
+                        </button>
+                        {{ item.name }} {{ item.amount }}
                       </li>
                     </ul>
                   </div>
@@ -203,16 +206,21 @@ export default {
   },
   methods: {
     addItem(categoryObj) {
-      categoryObj.subItems.push({
-        name: categoryObj.tempItemName,
-        amount: categoryObj.tempItemAmount,
-      });
-      categoryObj.tempItemName = "";
-      categoryObj.tempItemAmount = "";
+      // Check if the user has entered a name and amount
+      if (categoryObj.tempItemName && categoryObj.tempItemAmount) {
+        categoryObj.subItems.push({
+          name: categoryObj.tempItemName,
+          amount: categoryObj.tempItemAmount,
+        });
+        categoryObj.tempItemName = "";
+        categoryObj.tempItemAmount = "";
 
-      this.updateCategoryTotal(categoryObj);
-      this.updatePercentageOfIncome(categoryObj);
-      this.updateTreeMap();
+        this.updateCategoryTotal(categoryObj);
+        this.updatePercentageOfIncome(categoryObj);
+        this.updateTreeMap();
+      } else {
+        alert("Please enter both a name and amount");
+      }
     },
     updateCategoryTotal(categoryObj) {
       categoryObj.total = 0; // removes the need to subtract when item is removed
@@ -392,5 +400,9 @@ p {
 
 .table > :not(caption) > * > * {
   border-bottom-width: 0px;
+}
+
+li {
+  list-style-type: none;
 }
 </style>
