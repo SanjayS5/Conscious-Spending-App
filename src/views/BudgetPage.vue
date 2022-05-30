@@ -61,15 +61,15 @@
               <li class="nav-item" role="presentation">
                 <button
                   class="nav-link"
-                  id="profile-tab"
+                  id="goals-tab"
                   data-bs-toggle="tab"
-                  data-bs-target="#profile"
+                  data-bs-target="#goals"
                   type="button"
                   role="tab"
-                  aria-controls="profile"
+                  aria-controls="goals"
                   aria-selected="false"
                 >
-                  Expenses
+                  Understanding Your Goals
                 </button>
               </li>
             </ul>
@@ -130,11 +130,67 @@
               </div>
               <div
                 class="tab-pane fade"
-                id="profile"
+                id="goals"
                 role="tabpanel"
-                aria-labelledby="profile-tab"
+                aria-labelledby="goals-tab"
               >
-                ...
+                <div class="mb-5"></div>
+                <!-- Spacer -->
+                <div>
+                  <h3>Let's understand your goals</h3>
+                  <p>
+                    You can design your finances according to your goals. To do
+                    that, we'll use a couple of questions to help understand the
+                    things you value most.
+                  </p>
+                  <!-- QandA: {
+                          q1: {
+                            question:
+                              "What area of life does it bring you joy to spend money on?",
+                            answer: "",
+                          },
+                   } -->
+
+                  <div :key="q" v-for="q in QandA" class="mb-3">
+                    <p>{{ q.question }}</p>
+                    <div class="form-group">
+                      <textarea
+                        v-model="q.answer"
+                        class="form-control bg-dark text-white"
+                        rows="1"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <!-- <p>
+                    What area of life does it bring you joy to spend money on?
+                  </p>
+                  <div class="form-group">
+                    <label for="exampleFormControlTextarea1"
+                      >Example textarea</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="exampleFormControlTextarea1"
+                      rows="1"
+                    ></textarea>
+                  </div>
+                  <p>What comforts do you prioritise the most?</p>
+                  <p>
+                    What would give you a disproportionally high amount of
+                    happiness for the amount spent?
+                  </p>
+                  <p>
+                    What is important enough to you that would spend any amount
+                    of money on it if you needed to?
+                  </p>
+                  <p>What inconveniences would you pay money to get rid off?</p>
+
+                  <p>
+                    What are things you dislike spending money on? This should
+                    not include things you don't have control over
+                  </p> -->
+                </div>
               </div>
             </div>
           </div>
@@ -348,7 +404,55 @@ export default {
           percentage: 0,
         },
       },
+      QandA: {
+        q1: {
+          question:
+            "What area of life does it bring you joy to spend money on?",
+          answer: "",
+        },
+        q2: {
+          question: "What comforts do you prioritise the most?",
+          answer: "",
+        },
+        q3: {
+          question:
+            "What would give you a disproportionally high amount of happiness for the amount spent?",
+          answer: "",
+        },
+        q4: {
+          question:
+            "What is important enough to you that would spend any amount of money on it if you needed to?",
+          answer: "",
+        },
+        q5: {
+          question: "What inconveniences would you pay money to get rid off?",
+          answer: "",
+        },
+        q6: {
+          question:
+            "What are things you dislike spending money on? This should not include things you don't have control over",
+          answer: "",
+        },
+      },
     };
+  },
+  mounted() {
+    this.QandA = JSON.parse(localStorage.getItem("QandA")) || this.QandA;
+  },
+  watch: {
+    QandA: {
+      handler(newValue, oldValue) {
+        // Note: `newValue` will be equal to `oldValue` here
+        // on nested mutations as long as the object itself
+        // hasn't been replaced.
+
+        if (newValue !== oldValue) {
+          // pass
+        }
+        localStorage.setItem("QandA", JSON.stringify(newValue));
+      },
+      deep: true,
+    },
   },
   computed: {
     // return sum of totals for all categories

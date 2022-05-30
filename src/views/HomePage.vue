@@ -96,7 +96,7 @@
   </div>
   <section>
     <h2 class="text-center">This is where you money should go</h2>
-    <div class="mx-auto col-6">
+    <div class="mx-auto col-6 mb-5">
       <img
         src="../../src/assets/where_your_money_goes.png"
         style="max-width: 100%"

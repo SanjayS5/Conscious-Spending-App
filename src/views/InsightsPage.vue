@@ -50,7 +50,7 @@
           name: 'Budget',
         }"
       >
-        <button class="btn btn-primary">Build a Budget</button>
+        <button class="btn btn-primary">Automated Finance Planner</button>
       </router-link>
       <div class="mb-5">
         <div id="graph"></div>
