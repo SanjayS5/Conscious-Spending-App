@@ -191,6 +191,11 @@
         <div id="futurePlan"></div>
       </div>
     </section>
+    <!-- Spacer -->
+    <section>
+      <div class="mb-5"></div>
+    </section>
+    <!-- Spacer -->
   </section>
 </template>
 
