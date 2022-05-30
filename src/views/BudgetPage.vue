@@ -77,7 +77,7 @@
                   aria-controls="goals"
                   aria-selected="false"
                 >
-                  Understanding Your Goals
+                  Goals
                 </button>
               </li>
             </ul>
@@ -145,11 +145,11 @@
                 <div class="mb-5"></div>
                 <!-- Spacer -->
                 <div>
-                  <h3>Let's understand your goals</h3>
+                  <h3>Let's understand your drivers</h3>
                   <p>
-                    You can design your finances according to your goals. To do
-                    that, we'll use a couple of questions to help understand the
-                    things you value most.
+                    You can design your finances according to where you'll gain
+                    the highest impact. To do that, we'll use a couple of
+                    questions to help understand the things you value most.
                   </p>
                   <!-- QandA: {
                           q1: {

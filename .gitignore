@@ -19,3 +19,5 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+asb_txs_copy.csv
+kiwibank_txs.csv
