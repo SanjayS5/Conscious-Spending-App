@@ -502,7 +502,7 @@ export default {
 }
 
 .nav-link.active {
-  background-color: #4a2431;
+  background-color: #8d6440;
   color: #fff;
 }
 
