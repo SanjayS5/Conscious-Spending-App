@@ -446,6 +446,8 @@ export default {
   },
   mounted() {
     this.QandA = JSON.parse(localStorage.getItem("QandA")) || this.QandA;
+    this.BudgetData =
+      JSON.parse(localStorage.getItem("BudgetData")) || this.BudgetData;
   },
   watch: {
     QandA: {
@@ -458,6 +460,19 @@ export default {
           // pass
         }
         localStorage.setItem("QandA", JSON.stringify(newValue));
+      },
+      deep: true,
+    },
+    BudgetData: {
+      handler(newValue, oldValue) {
+        // Note: `newValue` will be equal to `oldValue` here
+        // on nested mutations as long as the object itself
+        // hasn't been replaced.
+
+        if (newValue !== oldValue) {
+          // pass
+        }
+        localStorage.setItem("BudgetData", JSON.stringify(newValue));
       },
       deep: true,
     },
