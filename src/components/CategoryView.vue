@@ -1,19 +1,21 @@
 <template>
-  <h4>{{ categoryName }}</h4>
-  <p>Total: {{ total }}</p>
-  <!-- <button @click="addTx(tx)" type="button" class="btn btn-primary mt-2 mb-2">
+  <div class="mb-3">
+    <h4>{{ categoryName }}</h4>
+    <p>Total: {{ total }}</p>
+    <!-- <button @click="addTx(tx)" type="button" class="btn btn-primary mt-2 mb-2">
     {{ categoryName }}
   </button> -->
-  <li v-for="query in this.queries" :key="query.query">
-    <button
-      class="btn-primary"
-      id="subitem-btn"
-      @click="undoCategorisation(query)"
-    >
-      X
-    </button>
-    {{ query.query }}
-  </li>
+    <li v-for="query in this.queries" :key="query.query">
+      <button
+        class="btn-primary"
+        id="subitem-btn"
+        @click="undoCategorisation(query)"
+      >
+        X
+      </button>
+      {{ query.query }}
+    </li>
+  </div>
 </template>
 
 <script>
@@ -104,23 +106,12 @@ export default {
       },
       deep: true,
     },
-    queries: {
-      handler(newValue, oldValue) {
-        // Note: `newValue` will be equal to `oldValue` here
-        // on nested mutations as long as the object itself
-        // hasn't been replaced.
-
-        if (newValue !== oldValue) {
-          // pass
-        }
-        localStorage.setItem("queries", JSON.stringify(this.queries));
-      },
-    },
-  },
-  mounted() {
-    localStorage.getItem("queries")
-      ? (this.queries = JSON.parse(localStorage.getItem("queries")))
-      : (this.queries = []);
   },
 };
 </script>
+
+<style scoped>
+li {
+  list-style: none;
+}
+</style>
