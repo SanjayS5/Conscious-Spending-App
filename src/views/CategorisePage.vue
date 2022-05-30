@@ -214,6 +214,7 @@ export default {
       localStorage.setItem("filteredTxs", JSON.stringify([]));
       localStorage.setItem("uncategorisedTxs", JSON.stringify([]));
       localStorage.setItem("categorisedQuery", JSON.stringify({}));
+      this.filteredTxs = [];
     },
   },
   mounted() {
