@@ -1,12 +1,3 @@
-<!--
-<template>
-  <section>
-    <InsightsData :categorised-txs="this.categorisedTxs" />
-  </section>
-</template>
--->
-
-
 <template>
   <section class="container">
     <section>
@@ -50,18 +41,13 @@
           name: 'Budget',
         }"
       >
-        <button class="btn btn-primary">Automated Finance Planner</button>
+        <button class="btn btn-primary">Planner</button>
       </router-link>
       <div class="mb-5">
         <div id="graph"></div>
         <div id="categoriesByMonth"></div>
       </div>
     </section>
-    <!-- <section>
-      <div>
-        
-      </div>
-    </section> -->
   </section>
 </template>
 

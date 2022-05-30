@@ -27,16 +27,24 @@
         >
           Insights
         </router-link>
-        > Automated Finance Planner
+        > Planner
       </div>
     </section>
     <section>
       <div class="mb-5">
-        <h1>Automated Finance Planner</h1>
+        <h1>Planner</h1>
         <p>
           <br />
           Using the insights from your previous spending patterns, you can
           create a conscious spending plan.
+        </p>
+        <p>
+          The next step is to create new sub accounts in your online bank, and
+          set up automatic payments into those accounts.
+        </p>
+        <p>
+          Finally, set up automatic investments in your investment app of
+          choice.
         </p>
       </div>
       <!-- The container for input and table begins here -->
